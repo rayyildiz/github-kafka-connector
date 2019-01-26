@@ -23,4 +23,4 @@ cache:
 
 build:
   script:
-    - sbt "-Dpackaging.type=jar clean coverage test coverageReport"
+    - sbt clean coverage test coverageReport
