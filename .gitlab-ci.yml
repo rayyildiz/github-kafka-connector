@@ -1,7 +1,7 @@
 image: "openjdk:8-jdk"
 
 variables:
-  SBT_OPTS: "-Dsbt.global.base=sbt-cache/sbtboot -Dsbt.boot.directory=sbt-cache/boot -Dsbt.ivy.home=sbt-cache/ivy -Dpackaging.type=jar"
+  SBT_OPTS: "-Dpackaging.type=jar -Dsbt.global.base=sbt-cache/sbtboot -Dsbt.boot.directory=sbt-cache/boot -Dsbt.ivy.home=sbt-cache/ivy"
 
 before_script:
   - apt-get update -y
@@ -23,4 +23,4 @@ cache:
 
 build:
   script:
-    - sbt clean coverage test coverageReport
+    - sbt "-Dpackaging.type=jar clean coverage test coverageReport"
