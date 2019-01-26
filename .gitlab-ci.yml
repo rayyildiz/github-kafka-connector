@@ -1,0 +1,26 @@
+image: "openjdk:8-jdk"
+
+variables:
+  SBT_OPTS: "-Dsbt.global.base=sbt-cache/sbtboot -Dsbt.boot.directory=sbt-cache/boot -Dsbt.ivy.home=sbt-cache/ivy -Dpackaging.type=jar"
+
+before_script:
+  - apt-get update -y
+  - apt-get install apt-transport-https -y
+  # Install SBT
+  - echo "deb http://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list
+  - apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
+  - apt-get update -y
+  - apt-get install sbt -y
+
+
+cache:
+  untracked: true
+  paths:
+    - "sbt-cache/ivy/cache"
+    - "sbt-cache/boot"
+    - "sbt-cache/sbtboot"
+    - "sbt-cache/target"
+
+build:
+  script:
+    - sbt clean coverage test coverageReport
