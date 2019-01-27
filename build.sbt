@@ -10,7 +10,6 @@ libraryDependencies ++= Seq(
   "org.slf4j" % "slf4j-simple" % "1.7.25",
   "javax.ws.rs" % "javax.ws.rs-api" % "2.1.1",
   "org.apache.kafka" % "connect-api" % kafkaVersion,
-//  "com.47deg" %% "github4s" % "0.20.0"
   "com.softwaremill.sttp" %% "play-json" % "1.5.8",
-//  "org.json4s" %% "json4s-native" % "3.6.0"
+  "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 )
