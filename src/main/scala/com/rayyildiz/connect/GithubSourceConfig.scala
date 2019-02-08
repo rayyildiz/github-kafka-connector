@@ -25,8 +25,6 @@ import java.util
 import org.apache.kafka.common.config.ConfigDef.{Importance, Type}
 import org.apache.kafka.common.config.{AbstractConfig, ConfigDef, ConfigException}
 
-import scala.collection.JavaConverters._
-
 class GithubSourceConfig(props: util.Map[String, String]) extends AbstractConfig(GithubSourceConfig.config, props) {
   val topic: String = getString(GithubSourceConfig.TOPIC_CONFIG)
   val authUsername: String = getString(GithubSourceConfig.AUTH_USERNAME_CONFIG)
@@ -45,7 +43,7 @@ object GithubSourceConfig {
   val AUTH_PASSWORD_CONFIG = "github.auth.password"
   val TOPIC_CONFIG = "topic"
 
-  def apply(map: Map[String, String]): GithubSourceConfig = new GithubSourceConfig(map.asJava)
+  def apply(map: util.Map[String, String]): GithubSourceConfig = new GithubSourceConfig(map)
 
   val config: ConfigDef = new ConfigDef()
     .define(GITHUB_OWNER_CONFIG, Type.STRING, Importance.HIGH, "Github owner name")

@@ -73,4 +73,14 @@ object GithubSchema {
     .field("labels", labelSchema) // optional
     .build()
 
+  val keySchema: Schema = SchemaBuilder
+    .struct()
+    .name("KEY_SCHEMA")
+    .version(1)
+    .field("owner", Schema.STRING_SCHEMA)
+    .field("repository", Schema.STRING_SCHEMA)
+    .field("issue_id", Schema.INT32_SCHEMA)
+    .build()
+
+
 }

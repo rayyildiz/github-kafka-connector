@@ -1,7 +1,8 @@
 /*
  * Copyright (c) 2018 Ramazan AYYILDIZ
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * Permission is hereby granted, free of char
+ * to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
@@ -20,25 +21,39 @@
  * SOFTWARE.
  */
 package com.rayyildiz.connect
+import java.net.URL
+
+import spray.json.DefaultJsonProtocol._
+import spray.json._
 
 object GithubApi {
 
   import com.softwaremill.sttp._
-  import com.softwaremill.sttp.playJson._
+  import com.softwaremill.sttp.sprayJson._
 
-  object Payload {
-    implicit val jsonFormat = ???
+  object IssueFormat {
+    implicit val labelFormat: RootJsonFormat[Label] = jsonFormat3(Label)
+    implicit val prFormat: RootJsonFormat[PR] = jsonFormat2(PR)
+    implicit val userFormat: RootJsonFormat[User] = jsonFormat3(User)
+    implicit val issueFormat: RootJsonFormat[Issue] = jsonFormat10(Issue)
+    //jsonFormat10(Issue)
+//    implicit val issueReaders: RootJsonReader[Seq[Issue]] = JsonReader[Seq[Issue]]
   }
 
   def call(repo: String) = {
     implicit val backend = HttpURLConnectionBackend()
 
-    import Payload._
+    import IssueFormat._
 
     val response = sttp
-      .get(Uri(repo))
+      .get(Uri(new URL(repo).toURI))
       .response(asJson[Seq[Issue]])
       .send()
+
+
+
+
+    response.body
   }
 
 }
