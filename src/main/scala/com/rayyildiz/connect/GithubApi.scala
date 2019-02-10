@@ -26,7 +26,7 @@ import java.net.URL
 import spray.json.DefaultJsonProtocol._
 import spray.json._
 
-object GithubApi {
+object GithubApi extends Logging {
 
   import com.softwaremill.sttp._
   import com.softwaremill.sttp.sprayJson._
@@ -36,11 +36,11 @@ object GithubApi {
     implicit val prFormat: RootJsonFormat[PR] = jsonFormat2(PR)
     implicit val userFormat: RootJsonFormat[User] = jsonFormat3(User)
     implicit val issueFormat: RootJsonFormat[Issue] = jsonFormat10(Issue)
-    //jsonFormat10(Issue)
-//    implicit val issueReaders: RootJsonReader[Seq[Issue]] = JsonReader[Seq[Issue]]
   }
 
-  def call(repo: String) = {
+  def call(repo: String): Either[String, Seq[Issue]] = {
+    log.info(s"Repo URL is ${repo}")
+
     implicit val backend = HttpURLConnectionBackend()
 
     import IssueFormat._
@@ -50,9 +50,7 @@ object GithubApi {
       .response(asJson[Seq[Issue]])
       .send()
 
-
-
-
+    log.info(s"Response ${response.code}")
     response.body
   }
 

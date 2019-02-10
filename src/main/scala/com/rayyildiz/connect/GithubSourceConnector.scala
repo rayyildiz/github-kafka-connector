@@ -31,7 +31,7 @@ import scala.collection.JavaConverters._
 import scala.util.{Failure, Try}
 
 class GithubSourceConnector extends SourceConnector with Logging {
-  private var configProps: util.Map[String, String] = null
+  private var configProps: util.Map[String, String] = _
 
   override def start(props: util.Map[String, String]): Unit = {
     log.info(s"Starting github kafka source connector for $props")

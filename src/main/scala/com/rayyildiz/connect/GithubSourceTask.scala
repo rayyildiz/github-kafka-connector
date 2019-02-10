@@ -29,7 +29,7 @@ import scala.collection.JavaConverters._
 class GithubSourceTask extends SourceTask with Logging {
   private val LAST_ISSUE_NUMBER = "last_issue"
 
-  private var config: GithubSourceConfig = null
+  private var config: GithubSourceConfig = _
   private var lastIssueNumber = 0
 
   override def start(props: util.Map[String, String]): Unit = {
@@ -41,7 +41,7 @@ class GithubSourceTask extends SourceTask with Logging {
       log.info("It is the first time to fetch data")
       lastIssueNumber = 1
     } else {
-      val obj = lastOffset.getOrDefault(LAST_ISSUE_NUMBER, 0)
+      val obj = lastOffset.get(LAST_ISSUE_NUMBER)
       if (obj != null && obj.isInstanceOf[Int]) {
         lastIssueNumber = obj.asInstanceOf[Int]
       }
@@ -54,15 +54,25 @@ class GithubSourceTask extends SourceTask with Logging {
     log.info("Task is polling")
     val url = s"https://api.github.com/repos/${config.githubOwner}/${config.githubRepo}/issues"
 
-    GithubApi.call(url).map(issues => {})
+    val records = GithubApi
+      .call(url)
+      .map(issues => {
+        issues.map(toSourceRecord)
+      })
 
-    ???
+    val results = if (records.isRight) {
+      records.right.get
+    } else Seq[SourceRecord]()
+
+    results.asJava
   }
-  override def stop(): Unit = ???
+
+  override def stop(): Unit = log.info("stopping task")
+
   override def version(): String = GithubSourceConfig.VERSION
 
-  private def generateSourceRecord(issue: Issue): SourceRecord = new SourceRecord(
-    sourcePartition,
+  private def toSourceRecord(issue: Issue): SourceRecord = new SourceRecord(
+    sourcePartition.asJava,
     sourceOffset(issue.id).asJava,
     config.topic,
     null, // partition will be inferred by the framework
