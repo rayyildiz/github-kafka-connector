@@ -35,7 +35,7 @@ class GithubSourceConfig(props: util.Map[String, String]) extends AbstractConfig
 }
 
 object GithubSourceConfig {
-  val VERSION = "0.1.0"
+  val VERSION = "0.2.0"
   val GITHUB_OWNER_CONFIG = "github.owner"
   val GITHUB_REPOSITORY_CONFIG = "github.repository"
   val GITHUB_BATCH_SIZE_CONFIG = "github.batch"
