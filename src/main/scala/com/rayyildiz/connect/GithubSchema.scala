@@ -82,5 +82,4 @@ object GithubSchema {
     .field("issue_id", Schema.INT32_SCHEMA)
     .build()
 
-
 }

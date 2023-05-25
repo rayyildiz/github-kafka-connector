@@ -9,7 +9,7 @@ ehthumbs_vista.db
 
 # Dump file
 *.stackdump
-
+.bsp/
 # Folder config file
 [Dd]esktop.ini
 

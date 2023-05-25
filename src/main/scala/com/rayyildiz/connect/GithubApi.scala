@@ -39,7 +39,7 @@ object GithubApi extends Logging {
   }
 
   def call(repo: String): Either[String, Seq[Issue]] = {
-    log.info(s"Repo URL is ${repo}")
+    log.info(s"Repo URL is $repo")
 
     implicit val backend = HttpURLConnectionBackend()
 
