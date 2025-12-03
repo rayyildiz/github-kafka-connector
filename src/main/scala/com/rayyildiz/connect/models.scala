@@ -27,4 +27,15 @@ case class PR(url: String, diffUrl: String)
 
 case class User(id: Int, login: String, site_admin: Boolean)
 
-case class Issue(id: Int, node_id: String, title: String, state: String, created_at: String, updated_at: Option[String] = None, body: String, pr: Option[PR], label: Option[Seq[Label]] = None, user: User)
+case class Issue(
+    id: Int,
+    node_id: String,
+    title: String,
+    state: String,
+    created_at: String,
+    updated_at: Option[String] = None,
+    body: String,
+    pr: Option[PR],
+    label: Option[Seq[Label]] = None,
+    user: User
+)

@@ -69,7 +69,7 @@ object GithubSchema {
     .field("updated_at", Schema.OPTIONAL_INT64_SCHEMA)
     .field("body", Schema.OPTIONAL_STRING_SCHEMA)
     .field("pull_request", prSchema) // optional
-    .field("user", userSchema) //mandatory
+    .field("user", userSchema) // mandatory
     .field("labels", labelSchema) // optional
     .build()
 
