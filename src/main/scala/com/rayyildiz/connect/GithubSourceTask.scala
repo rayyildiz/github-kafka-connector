@@ -20,12 +20,13 @@
  * SOFTWARE.
  */
 package com.rayyildiz.connect
-import java.util
 
 import org.apache.kafka.connect.data.Struct
 import org.apache.kafka.connect.source.{SourceRecord, SourceTask}
 
-import scala.collection.JavaConverters._
+import java.util
+import scala.jdk.CollectionConverters.{MapHasAsJava, SeqHasAsJava}
+
 class GithubSourceTask extends SourceTask with Logging {
   private val LAST_ISSUE_NUMBER = "last_issue"
 
@@ -60,9 +61,7 @@ class GithubSourceTask extends SourceTask with Logging {
         issues.map(toSourceRecord)
       })
 
-    val results = if (records.isRight) {
-      records.right.get
-    } else Seq[SourceRecord]()
+    val results = records.getOrElse(Seq[SourceRecord]()) ++ Seq()
 
     results.asJava
   }

@@ -31,7 +31,7 @@ object GithubApi extends Logging {
   import com.softwaremill.sttp._
   import com.softwaremill.sttp.sprayJson._
 
-  object IssueFormat {
+  private object IssueFormat {
     implicit val labelFormat: RootJsonFormat[Label] = jsonFormat3(Label)
     implicit val prFormat: RootJsonFormat[PR] = jsonFormat2(PR)
     implicit val userFormat: RootJsonFormat[User] = jsonFormat3(User)
@@ -41,7 +41,7 @@ object GithubApi extends Logging {
   def call(repo: String): Either[String, Seq[Issue]] = {
     log.info(s"Repo URL is $repo")
 
-    implicit val backend = HttpURLConnectionBackend()
+    implicit val backend: SttpBackend[Id, Nothing] = HttpURLConnectionBackend()
 
     import IssueFormat._
 
