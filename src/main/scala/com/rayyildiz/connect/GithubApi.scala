@@ -31,7 +31,7 @@ object GithubApi extends Logging {
   import com.softwaremill.sttp._
   import com.softwaremill.sttp.sprayJson._
 
-  object IssueFormat {
+  private object IssueFormat {
     implicit val labelFormat: RootJsonFormat[Label] = jsonFormat3(Label)
     implicit val prFormat: RootJsonFormat[PR] = jsonFormat2(PR)
     implicit val userFormat: RootJsonFormat[User] = jsonFormat3(User)
