@@ -24,6 +24,6 @@ package com.rayyildiz.connect
 import org.slf4j.LoggerFactory
 
 trait Logging {
-  val loggerName = this.getClass.getName
+  private val loggerName = this.getClass.getName
   @transient lazy val log = LoggerFactory.getLogger(loggerName)
 }

@@ -41,7 +41,7 @@ object GithubApi extends Logging {
   def call(repo: String): Either[String, Seq[Issue]] = {
     log.info(s"Repo URL is $repo")
 
-    implicit val backend = HttpURLConnectionBackend()
+    implicit val backend: SttpBackend[Id, Nothing] = HttpURLConnectionBackend()
 
     import IssueFormat._
 

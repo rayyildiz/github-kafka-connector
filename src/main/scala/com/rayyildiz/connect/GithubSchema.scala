@@ -42,7 +42,7 @@ object GithubSchema {
     .optional()
     .build()
 
-  val labelItemSchema: Schema = SchemaBuilder
+  private val labelItemSchema: Schema = SchemaBuilder
     .struct()
     .name("GITHUB_LABEL_SCHEMA_ITEM")
     .version(1)
@@ -51,7 +51,7 @@ object GithubSchema {
     .field("color", Schema.STRING_SCHEMA)
     .build()
 
-  val labelSchema: Schema = SchemaBuilder
+  private val labelSchema: Schema = SchemaBuilder
     .array(labelItemSchema)
     .version(1)
     .optional()

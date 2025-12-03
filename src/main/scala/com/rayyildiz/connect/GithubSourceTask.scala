@@ -21,11 +21,11 @@
  */
 package com.rayyildiz.connect
 import java.util
-
 import org.apache.kafka.connect.data.Struct
 import org.apache.kafka.connect.source.{SourceRecord, SourceTask}
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters.{MapHasAsJava, SeqHasAsJava}
+
 class GithubSourceTask extends SourceTask with Logging {
   private val LAST_ISSUE_NUMBER = "last_issue"
 

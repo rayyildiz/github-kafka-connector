@@ -21,13 +21,12 @@
  */
 package com.rayyildiz.connect
 import java.util
-
 import org.apache.kafka.common.config.ConfigDef
 import org.apache.kafka.connect.connector.Task
 import org.apache.kafka.connect.errors.ConnectException
 import org.apache.kafka.connect.source.SourceConnector
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters.SeqHasAsJava
 import scala.util.{Failure, Try}
 
 class GithubSourceConnector extends SourceConnector with Logging {
