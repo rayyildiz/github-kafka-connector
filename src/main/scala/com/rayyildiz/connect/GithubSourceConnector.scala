@@ -37,10 +37,9 @@ class GithubSourceConnector extends SourceConnector with Logging {
     this.configProps = props
 
     Try(new GithubSourceConfig(configProps)) match {
-      case Failure(exception) => {
+      case Failure(exception) =>
         log.error("Could not start github source kafka connector", exception)
         throw new ConnectException("could not start kafka table storage: " + exception.getMessage, exception)
-      }
       case _ => log.info("Successfully created task configuration")
     }
   }
